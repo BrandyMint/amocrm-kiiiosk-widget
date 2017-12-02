@@ -1,0 +1,10 @@
+input[name=goods_catalog_id] {
+    display: none;
+    padding: 5px;
+}
+
+#kiosk_goods_catalog_id {
+    width: 278px;
+    padding: 5px;
+    height: 36px;
+}

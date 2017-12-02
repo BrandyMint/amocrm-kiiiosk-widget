@@ -1,0 +1,16 @@
+{
+    "widget":{
+        "name":"Киоск интеграция",
+        "short_description":"",
+        "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere nulla, consequuntur non nobis aut dolore nesciunt modi iste fugiat laborum asperiores dolorem doloribus quisquam tempore corporis, et eius, praesentium obcaecati."
+    },
+    "settings":{
+        "api_key": "API key",
+        "status_id_default": "Статус сделки по умолчанию",
+        "status_id_pay": "Статус сделки при оплате",
+        "enable_goods_linking": "Привязывать товары к заказу",
+        "goods_catalog_name": "Список товаров",
+        "moysklad_id": "Moysklad ID",
+        "delivery_address": "Поле адреса доставки"
+    }
+}

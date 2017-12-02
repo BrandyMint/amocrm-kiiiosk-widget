@@ -1,0 +1,47 @@
+{
+    "widget": {
+        "name": "widget.name",
+        "description": "widget.description",
+        "short_description": "widget.short_description",
+        "code": "comf5_kiosk_dev",
+        "secret_key": "f85c24e6849fe7ce47fdca36ef0d9b3ddccabb4df0ca60bf25d3632a4177a73c",
+        "version": "5.5.11",
+        "interface_version": 2,
+        "init_once": false,
+        "locale": ["ru"],
+        "installation": true
+    },
+    "locations": ["settings"],
+    "settings": {
+        "api_key": {
+            "name": "settings.api_key",
+            "type": "text",
+            "required": true
+        },
+        "status_id_default": {
+            "name": "settings.status_id_default",
+            "type": "text",
+            "required": false
+        },
+        "status_id_pay": {
+            "name": "settings.status_id_pay",
+            "type": "text",
+            "required": false
+        },
+        "goods_catalog_name": {
+            "name": "settings.goods_catalog_name",
+            "type": "text",
+            "required": true
+        },
+        "moysklad_id": {
+            "name": "settings.moysklad_id",
+            "type": "text",
+            "required": false
+        },
+        "delivery_address": {
+            "name": "settings.delivery_address",
+            "type": "text",
+            "required": false
+        }
+    }
+}

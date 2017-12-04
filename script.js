@@ -7,6 +7,8 @@ define(['jquery'], function($){
             send_data = {};
         ;
 
+        const API_BASE = 'api.3001.brandymint.ru';
+
         let AmoApi = {
             current: false,
             error: function (header, text) {
@@ -65,17 +67,9 @@ define(['jquery'], function($){
                     });
                 });
             },
-            getCatalogListOptions: function(catalog_name){
-                return new Promise(function (resolve) {
-                    $.get('/private/api/v2/json/catalogs/list').then(function (data) {
-                        let catalogListOptions = _.map(data.response.catalogs, function (catalog, catalog_id) {
-                            return `<option value="${catalog_id}" ${catalog.name == catalog_name? 'selected' : ''}>${catalog.name}</option>`;
-                        }).join("\n");
-
-                        resolve(catalogListOptions);
-                    });
-                });
-            },
+            getCatalogList: function(catalog_name){
+                return $.get('/private/api/v2/json/catalogs/list');
+            }
         };
 
         /**
@@ -144,72 +138,112 @@ define(['jquery'], function($){
              * Вызывается при открытие виджета
              */
             settings: function(){
-                let goods_catalog_field = $('input[name="goods_catalog_name"]');
-                let goods_catalog_field_val = $('input[name="goods_catalog_id"]').val();
-                let goods_catalog_field_selected = goods_catalog_field_val
-                    ? goods_catalog_field_val
-                    : 'Товары'
-                ;
+                try{
+                    let goodsCatalogInput = $('input[name="goods_catalog_id"]');
 
-                AmoApi.getCatalogListOptions(goods_catalog_field_selected).then((list)=>{
-                    let select = `<select name="catalog_list" id="kiosk_goods_catalog_id">${list}</select>`;
-                    goods_catalog_field
-                        .closest('.widget_settings_block__input_field')
-                        .append(select)
-                    ;
+                    let catalogs = [{
+                        option: 'Не выбран',
+                        id: 0
+                    }];
 
-                    let selected_name = $('#kiosk_goods_catalog_id').find(':selected').text();
+                    AmoApi.getCatalogList().then((r)=>{
+                        _.each(r.response.catalogs, function(catalog, catalog_id) {
+                            catalogs.push({
+                                option: catalog.name,
+                                id: catalog_id
+                            });
+                        });
 
-                    if( selected_name !== goods_catalog_field_val ) {
-                        goods_catalog_field.val( selected_name ).trigger('controls:change:visual');
-                    }
+                        var goods_catalogs_select_html = self.render({ref: '/tmpl/controls/select.twig'}, {
+                            id: 'kiosk_goods_catalog_statuses_select',
+                            class_name: 'kiosk_goods_catalog_statuses_select',
+                            items: catalogs,
+                            selected: goodsCatalogInput.val()
+                        });
 
-                    $('#kiosk_goods_catalog_id').off('change.kiosk').on('change.kiosk', function(){
-                        goods_catalog_field.val( $(this).find(':selected').text() ).trigger('controls:change:visual');
+                        goodsCatalogInput.hide().closest('.widget_settings_block__input_field').append(goods_catalogs_select_html);
+
+                        var goodsCatalogHiddenInput = $('#kiosk_goods_catalog_statuses_select');
+                        goodsCatalogHiddenInput.parents('.kiosk_goods_catalog_statuses_select').css({width: '396px', 'margin': '5px 0 0 0'});
+
+                        goodsCatalogHiddenInput.on('change', function() {
+                            goodsCatalogInput.val($(this).val()).trigger('controls:change:visual');;
+                        });
                     });
-                });
 
-                /* status_id_default */
-                // let $chStatusInput = $('input[name="status_id_default"]');
-                // let statuses = [{
-                //         option: 'Не выбран',
-                //         id: 0,
-                //     }];
+                    /* initial_state_id in API  */
+                    let defaultStatusInput = $('input[name="status_id_default"]');
 
-                // AmoApi.getCurrent().then( (r) => {
-                //     r.response.account.leads_statuses.forEach(function(status){
-                //         statuses.push({
-                //             option: status.name,
-                //             id: status.id
-                //         });
-                //     });
-                // });
+                    /*  paid_state_id in API - */
+                    let payStatusInput = $('input[name="status_id_pay"]');
 
-                // console.log('statuses', statuses);
-                // var default_statuses_select_html = self.render({ref: '/tmpl/controls/select.twig'}, {
-                //     id: 'ch_statuses_select',
-                //     class_name: 'ch_statuses_select',
-                //     items: statuses,
-                //     selected: +$chStatusInput.val(),
-                // });
+                    let leadStatuses = [{
+                        option: 'Не выбран',
+                        id: 0,
+                    }];
 
 
-                // $chStatusInput.hide().parent().prepend(default_statuses_select_html);
-                // var $statusHiddenInput = $('#ch_statuses_select');
-                // $statusHiddenInput.parents('.ch_statuses_select').css({width: '396px', 'margin': '5px 0 0 0'});
-                // $statusHiddenInput.on('change', function() {
-                //     $chStatusInput.val($(this).val());
-                // });
+                    AmoApi.getCurrent().then( (r) => {
+                        r.response.account.leads_statuses.forEach(function(status){
+                            leadStatuses.push({
+                                option: status.name,
+                                id: status.id
+                            });
+                        });
+
+                        var default_statuses_select_html = self.render({ref: '/tmpl/controls/select.twig'}, {
+                            id: 'kiosk_default_statuses_select',
+                            class_name: 'kiosk_default_statuses_select',
+                            items: leadStatuses,
+                            selected: defaultStatusInput.val()
+                        });
+
+                        var pay_statuses_select_html = self.render({ref: '/tmpl/controls/select.twig'}, {
+                            id: 'kiosk_pay_statuses_select',
+                            class_name: 'kiosk_pay_statuses_select',
+                            items: leadStatuses,
+                            selected: payStatusInput.val()
+                        });
+
+
+                        defaultStatusInput.hide().closest('.widget_settings_block__input_field').prepend(default_statuses_select_html);
+                        payStatusInput.hide().closest('.widget_settings_block__input_field').prepend(pay_statuses_select_html);
+
+                        var defaultStatusHiddenInput = $('#kiosk_default_statuses_select');
+                        var payStatusHiddenInput = $('#kiosk_pay_statuses_select');
+
+                        defaultStatusHiddenInput.parents('.kiosk_default_statuses_select').css({width: '396px', 'margin': '5px 0 0 0'});
+                        payStatusHiddenInput.parents('.kiosk_pay_statuses_select').css({width: '396px', 'margin': '5px 0 0 0'});
+
+                        defaultStatusHiddenInput.on('change', function() {
+                            defaultStatusInput.val($(this).val()).trigger('controls:change:visual');;
+                        });
+
+                        payStatusHiddenInput.on('change', function() {
+                            payStatusInput.val($(this).val()).trigger('controls:change:visual');;
+                        });
+                    });
+
+                } catch(e) {
+                    console.error('Settings', e);
+                }
 
                 return true;
             },
             onSave: function(fieldlist){
-                let send_data = {};
-                send_data.goods_catalog_id = $('#kiosk_goods_catalog_id').val();
-                send_data.is_active = fieldlist.active
-                console.log(send_data)
-                console.log(fieldlist);
-                return true;
+                try {
+                    let send_data = {};
+                    send_data.goods_catalog_id = fieldlist.fields.goods_catalog_id;
+                    send_data.is_active = fieldlist.active;
+                    send_data.initial_state_id = fieldlist.fields.status_id_default;
+                    send_data.paid_state_id = fieldlist.fields.paid_state_id;
+                    console.log('SEND DATA', send_data);
+                    console.log('FIELDLIST:',fieldlist);
+                } catch(e) {
+                    console.error("On save error", e);
+                } finally {
+                    return true;
+                }
             },
             destroy: function(){
                 console.log('disabled');

@@ -9,7 +9,7 @@ define(['jquery'], function($){
 
         const API_BASE = 'https://api.kiiiosk.ru/v1/amocrm';
 
-        const GET_X_API_KEY_LINK = 'https://app.kiiiosk.ru/profile/access_keys';
+        const GET_X_API_KEY_URL = 'https://app.kiiiosk.ru/profile/access_keys';
 
         let AmoApi = {
             current: false,
@@ -142,7 +142,13 @@ define(['jquery'], function($){
             settings: function(){
                 try{
                     /* X_API_KEY add link */
+                    let apiKeyInput = $('input[name="api_key"]');
+                    let apiKeyLink = `<a href="${GET_X_API_KEY_URL}" class="kiosk_api_key_link" target="_blank">Получить api key</a>`;
+                    apiKeyInput.closest('.widget_settings_block__item_field')
+                        .find('.widget_settings_block__title_field')
+                        .append(apiKeyLink);
 
+                    /* Список товаров selectable */
                     let goodsCatalogInput = $('input[name="goods_catalog_id"]');
 
                     let catalogs = [{

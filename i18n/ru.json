@@ -8,8 +8,8 @@
         "api_key": "API key",
         "status_id_default": "Статус сделки по умолчанию",
         "status_id_pay": "Статус сделки при оплате",
+        "goods_catalog_id": "Список товаров",
         "enable_goods_linking": "Привязывать товары к заказу",
-        "goods_catalog_name": "Список товаров",
         "moysklad_id": "Moysklad ID",
         "delivery_address": "Поле адреса доставки"
     }

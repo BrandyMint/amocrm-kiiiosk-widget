@@ -236,9 +236,16 @@ define(['jquery'], function($){
                     send_data.goods_catalog_id = fieldlist.fields.goods_catalog_id;
                     send_data.is_active = fieldlist.active;
                     send_data.initial_state_id = fieldlist.fields.status_id_default;
-                    send_data.paid_state_id = fieldlist.fields.paid_state_id;
-                    console.log('SEND DATA', send_data);
-                    console.log('FIELDLIST:',fieldlist);
+                    send_data.paid_state_id = fieldlist.fields.status_id_pay;
+
+                    $.ajax({
+                        url: API_BASE + '/#!/amocrm/putV1AmocrmSettings',
+                        type: 'PUT',
+                        success: function(response) {
+                            console.log('response', response);
+                        }
+                    });
+
                 } catch(e) {
                     console.error("On save error", e);
                 } finally {

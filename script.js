@@ -7,7 +7,9 @@ define(['jquery'], function($){
             send_data = {};
         ;
 
-        const API_BASE = 'api.3001.brandymint.ru';
+        const API_BASE = 'https://api.kiiiosk.ru/v1/amocrm';
+
+        const GET_X_API_KEY_LINK = 'https://app.kiiiosk.ru/profile/access_keys';
 
         let AmoApi = {
             current: false,
@@ -139,6 +141,8 @@ define(['jquery'], function($){
              */
             settings: function(){
                 try{
+                    /* X_API_KEY add link */
+
                     let goodsCatalogInput = $('input[name="goods_catalog_id"]');
 
                     let catalogs = [{
@@ -239,8 +243,10 @@ define(['jquery'], function($){
                     send_data.paid_state_id = fieldlist.fields.status_id_pay;
 
                     $.ajax({
-                        url: API_BASE + '/#!/amocrm/putV1AmocrmSettings',
+                        url: API_BASE + '/settings',
                         type: 'PUT',
+                        dataType: 'json',
+                        data: send_data,
                         success: function(response) {
                             console.log('response', response);
                         }

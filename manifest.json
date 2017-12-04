@@ -28,13 +28,13 @@
             "type": "text",
             "required": false
         },
-        "goods_catalog_name": {
+        "goods_catalog_id": {
             "name": "settings.goods_catalog_id",
             "type": "text",
             "required": true
         },
-        "goods_catalog_name": {
-            "name": "settings.goods_catalog_id",
+        "enable_goods_linking": {
+            "name": "settings.enable_goods_linking",
             "type": "text",
             "required": true
         },

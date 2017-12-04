@@ -244,7 +244,7 @@ define(['jquery'], function($){
                 try {
                     let send_data = {};
                     send_data.goods_catalog_id = fieldlist.fields.goods_catalog_id;
-                    send_data.is_active = fieldlist.active;
+                    send_data.is_active = fieldlist.active?true:false;
                     send_data.initial_state_id = fieldlist.fields.status_id_default;
                     send_data.paid_state_id = fieldlist.fields.status_id_pay;
 

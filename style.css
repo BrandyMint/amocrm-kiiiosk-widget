@@ -1,6 +1,5 @@
-input[name=goods_catalog_id] {
-    display: none;
-    padding: 5px;
+.kiosk_api_key_link {
+    color: #1375ab;
 }
 
 #kiosk_goods_catalog_id {

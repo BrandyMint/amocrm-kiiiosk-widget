@@ -20,10 +20,11 @@ define(['jquery'], function($){
                 });
             },
             getCurrent: function () {
-                if(this.current) {
-                    return current;
-                }
                 return new Promise(function(resolve){
+                    if(AmoApi.current) {
+                        resolve(AmoApi.current);
+                    }
+
                     $.get("/private/api/v2/json/accounts/current").then(function(r){
                         AmoApi.current = r;
                         resolve(r);

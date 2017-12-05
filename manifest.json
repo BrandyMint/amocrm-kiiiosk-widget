@@ -5,7 +5,7 @@
         "short_description": "widget.short_description",
         "code": "comf5_kiosk_dev",
         "secret_key": "f85c24e6849fe7ce47fdca36ef0d9b3ddccabb4df0ca60bf25d3632a4177a73c",
-        "version": "0.1.11",
+        "version": "0.2.11",
         "interface_version": 2,
         "init_once": false,
         "locale": ["ru"],
@@ -36,7 +36,7 @@
         "enable_goods_linking": {
             "name": "settings.enable_goods_linking",
             "type": "text",
-            "required": true
+            "required": false
         },
         "moysklad_id": {
             "name": "settings.moysklad_id",

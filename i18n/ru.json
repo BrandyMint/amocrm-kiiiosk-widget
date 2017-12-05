@@ -1,8 +1,8 @@
 {
     "widget":{
-        "name":"Киоск интеграция",
-        "short_description":"",
-        "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere nulla, consequuntur non nobis aut dolore nesciunt modi iste fugiat laborum asperiores dolorem doloribus quisquam tempore corporis, et eius, praesentium obcaecati."
+        "name":"Интеграция с kiiiosk.ru",
+        "short_description":"Виджет для экспорта заказов из интернет-магазина на kiiiosk.ru",
+        "description":"<a href='https://kiiiosk.ru/'>kiiiosk.ru</a> – это конструктор интернет-магазинов. Запустите экспорт заказов из интернет-магазина и обрабатывайте их в AmoCRM используя все возможности Digital Pipeline.<br>Как это работает:<br>Устанавливаете ключ доступа (X-Api-Key) со строницы своего профиля на kiiiosk.ru - https://kiiiosk.ru/profile/access_keys и получаете автоматический экспорт заказов в AmoCRM."
     },
     "settings":{
         "api_key": "API key",
@@ -10,7 +10,8 @@
         "status_id_pay": "Статус сделки при оплате",
         "goods_catalog_id": "Список товаров",
         "enable_goods_linking": "Привязывать товары к заказу",
-        "moysklad_id": "Moysklad ID",
-        "delivery_address": "Поле адреса доставки"
+        "moysklad_id": "ID поля содержащего Moysklad ID товара",
+        "delivery_address": "Поле адреса доставки в заказе"
     }
 }
+

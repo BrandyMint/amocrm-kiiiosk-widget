@@ -91,28 +91,6 @@ define(['jquery'], function($){
         }
 
         /**
-         * @return {Object} Promise
-         */
-        function loadData() {
-            return new Promise((resolve, reject)=>{
-                $.get(widget_url).then((data) =>{
-                    if( !_.isObject(data) || !_.has(data, 'diagnosis') ) {
-                        throw new TypeError("Ожидается объект, а возвращает " + typeof data);
-                    }
-
-                    let diagnosisItems = data.diagnosis.map((diagnosisName) => {
-                        return `<li class="diagnosis__item">${diagnosisName}</li>`;
-                    }).join("\n");
-
-                    emailEnds = data.email_autocomplete;
-
-                    diagnosisListWrap = `<div class="diagnosis_wrap " style="display:none"><ul>${diagnosisItems}</ul></div>`;
-                    resolve(data);
-                });
-            });
-        }
-
-        /**
          * Калбеки виджета
          */
         this.callbacks = {
@@ -123,10 +101,8 @@ define(['jquery'], function($){
              * Инициализация
              */
             init: function() {
-                system = self.system();
                 user = AMOCRM.constant('user');
                 account = AMOCRM.constant('account');
-                console.log('inited');
                 addStyle();
                 return true;
             },
@@ -234,6 +210,23 @@ define(['jquery'], function($){
                         });
                     });
 
+                    /* Привязывать товары при экспорте сделки в AmoCRM enable_goods_linking */
+                    let enableGoodsLinkingInput = $('input[name="enable_goods_linking"]');
+                    let isEnabledGoodsLinkInput = enableGoodsLinkingInput.val() == 'true';
+                    let swatcher = `<div class="switcher_wrapper">
+                        <label for="kiosk_is_enable_goods_linking" class="switcher switcher_blue ${isEnabledGoodsLinkInput? 'switcher__on' : 'switcher__off'}" id=""></label>
+                        <input value="Y" name="kiosk_enable_goods_linking" id="kiosk_is_enable_goods_linking" class="switcher__checkbox" checked="${isEnabledGoodsLinkInput ? 'checked' : ''}" type="checkbox">
+                    </div>`;
+
+                    enableGoodsLinkingInput.hide().closest('.widget_settings_block__item_field').append(swatcher);
+
+                    let enableGoodsLinkingHiddentInput = $('input[name="kiosk_enable_goods_linking"]');
+
+                    enableGoodsLinkingHiddentInput.on('change', function(){
+                        let checked = $(this).is(':checked')? 'true' : 'false';
+                        enableGoodsLinkingInput.val(checked);
+                    });
+
                 } catch(e) {
                     console.error('Settings', e);
                 }
@@ -247,12 +240,19 @@ define(['jquery'], function($){
                     send_data.is_active = fieldlist.active?true:false;
                     send_data.initial_state_id = fieldlist.fields.status_id_default;
                     send_data.paid_state_id = fieldlist.fields.status_id_pay;
+                    send_data.apikey = system.amohash;
+                    send_data.login = system.amouser;
+                    send_data.enable_goods_linking = fieldlist.fields.enable_goods_linking;
+                    send_data.url = 'https://' + system.domain;
+
+                    let apiKey = fieldlist.fields.api_key;
 
                     $.ajax({
                         url: API_BASE + '/settings',
                         type: 'PUT',
                         dataType: 'json',
                         data: send_data,
+                        headers: { "X-Api-Key": apiKey },
                         success: function(response) {
                             console.log('response', response);
                         }

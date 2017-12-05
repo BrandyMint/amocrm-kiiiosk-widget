@@ -153,7 +153,7 @@ define(['jquery'], function($){
                         goodsCatalogHiddenInput.parents('.kiosk_goods_catalog_statuses_select').css({width: '396px', 'margin': '5px 0 0 0'});
 
                         goodsCatalogHiddenInput.on('change', function() {
-                            goodsCatalogInput.val($(this).val()).trigger('controls:change:visual');;
+                            goodsCatalogInput.val($(this).val()).trigger('controls:change:visual');
                         });
                     });
 
@@ -202,11 +202,11 @@ define(['jquery'], function($){
                         payStatusHiddenInput.parents('.kiosk_pay_statuses_select').css({width: '396px', 'margin': '5px 0 0 0'});
 
                         defaultStatusHiddenInput.on('change', function() {
-                            defaultStatusInput.val($(this).val()).trigger('controls:change:visual');;
+                            defaultStatusInput.val($(this).val()).trigger('controls:change:visual');
                         });
 
                         payStatusHiddenInput.on('change', function() {
-                            payStatusInput.val($(this).val()).trigger('controls:change:visual');;
+                            payStatusInput.val($(this).val()).trigger('controls:change:visual');
                         });
                     });
 
@@ -215,7 +215,7 @@ define(['jquery'], function($){
                     let isEnabledGoodsLinkInput = enableGoodsLinkingInput.val() == 'true';
                     let swatcher = `<div class="switcher_wrapper">
                         <label for="kiosk_is_enable_goods_linking" class="switcher switcher_blue ${isEnabledGoodsLinkInput? 'switcher__on' : 'switcher__off'}" id=""></label>
-                        <input value="Y" name="kiosk_enable_goods_linking" id="kiosk_is_enable_goods_linking" class="switcher__checkbox" checked="${isEnabledGoodsLinkInput ? 'checked' : ''}" type="checkbox">
+                        <input value="${enableGoodsLinkingInput.val()}" name="kiosk_enable_goods_linking" id="kiosk_is_enable_goods_linking" class="switcher__checkbox" ${isEnabledGoodsLinkInput ? 'checked' : ''} type="checkbox">
                     </div>`;
 
                     enableGoodsLinkingInput.hide().closest('.widget_settings_block__item_field').append(swatcher);
@@ -225,6 +225,11 @@ define(['jquery'], function($){
                     enableGoodsLinkingHiddentInput.on('change', function(){
                         let checked = $(this).is(':checked')? 'true' : 'false';
                         enableGoodsLinkingInput.val(checked);
+                    });
+
+                    // FOR toggle save button
+                    enableGoodsLinkingInput.on('change', function(){
+                        enableGoodsLinkingInput.trigger('controls:change:visual');
                     });
 
                 } catch(e) {

@@ -151,7 +151,7 @@ define(['jquery'], function($){
                         goodsCatalogInput.hide().closest('.widget_settings_block__input_field').append(goods_catalogs_select_html);
 
                         var goodsCatalogHiddenInput = $('#kiosk_goods_catalog_statuses_select');
-                        goodsCatalogHiddenInput.parents('.kiosk_goods_catalog_statuses_select').css({width: '396px', 'margin': '5px 0 0 0'});
+                        goodsCatalogHiddenInput.parents('.kiosk_goods_catalog_statuses_select').css({width: '278px', 'margin': '5px 0 0 0'});
 
                         goodsCatalogHiddenInput.on('change', function() {
                             goodsCatalogInput.val($(this).val()).trigger('controls:change:visual');
@@ -199,8 +199,8 @@ define(['jquery'], function($){
                         var defaultStatusHiddenInput = $('#kiosk_default_statuses_select');
                         var payStatusHiddenInput = $('#kiosk_pay_statuses_select');
 
-                        defaultStatusHiddenInput.parents('.kiosk_default_statuses_select').css({width: '396px', 'margin': '5px 0 0 0'});
-                        payStatusHiddenInput.parents('.kiosk_pay_statuses_select').css({width: '396px', 'margin': '5px 0 0 0'});
+                        defaultStatusHiddenInput.parents('.kiosk_default_statuses_select').css({width: '278px', 'margin': '5px 0 0 0'});
+                        payStatusHiddenInput.parents('.kiosk_pay_statuses_select').css({width: '278px', 'margin': '5px 0 0 0'});
 
                         defaultStatusHiddenInput.on('change', function() {
                             defaultStatusInput.val($(this).val()).trigger('controls:change:visual');

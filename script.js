@@ -171,10 +171,12 @@ define(['jquery'], function($){
 
 
                     AmoApi.getCurrent().then( (r) => {
-                        r.response.account.leads_statuses.forEach(function(status){
-                            leadStatuses.push({
-                                option: status.name,
-                                id: status.id
+                        _.each(r.response.account.pipelines, function(pipeline, pipeline_id){
+                            _.each(pipeline.statuses, function(status, status_id){
+                                leadStatuses.push({
+                                    option: pipeline.name + ': ' + status.name,
+                                    id: status.id
+                                });
                             });
                         });
 

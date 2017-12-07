@@ -92,6 +92,21 @@ define(['jquery'], function($){
         }
 
         /**
+         * Return statusId from (pipelineId|statusId) string
+         * @param  {String} $pipeSepStatus (pipelineId|statusId)
+         * @return {String}                status id
+         */
+        function getStatusIdFromPipeStatus(pipeSepStatus) {
+            if(0 === pipeSepStatus.length ) {
+                return '';
+            }
+
+            let arPipeStatus = pipeSepStatus.split('|');
+
+            return (arPipeStatus.length == 2) ? arPipeStatus[1] : '';
+        }
+
+        /**
          * Калбеки виджета
          */
         this.callbacks = {
@@ -175,7 +190,7 @@ define(['jquery'], function($){
                             _.each(pipeline.statuses, function(status, status_id){
                                 leadStatuses.push({
                                     option: pipeline.name + ': ' + status.name,
-                                    id: status.id
+                                    id: pipeline_id + '|' + status.id
                                 });
                             });
                         });
@@ -204,11 +219,11 @@ define(['jquery'], function($){
                         defaultStatusHiddenInput.parents('.kiosk_default_statuses_select').css({width: '278px', 'margin': '5px 0 0 0'});
                         payStatusHiddenInput.parents('.kiosk_pay_statuses_select').css({width: '278px', 'margin': '5px 0 0 0'});
 
-                        defaultStatusHiddenInput.on('change', function() {
+                        defaultStatusHiddenInput.off('change.wKiosk').on('change.wKiosk', function() {
                             defaultStatusInput.val($(this).val()).trigger('controls:change:visual');
                         });
 
-                        payStatusHiddenInput.on('change', function() {
+                        payStatusHiddenInput.off('change.wKiosk').on('change.wKiosk', function() {
                             payStatusInput.val($(this).val()).trigger('controls:change:visual');
                         });
                     });
@@ -246,8 +261,8 @@ define(['jquery'], function($){
                     let send_data = {};
                     send_data.goods_catalog_id = fieldlist.fields.goods_catalog_id;
                     send_data.is_active = fieldlist.active?true:false;
-                    send_data.initial_state_id = fieldlist.fields.status_id_default;
-                    send_data.paid_state_id = fieldlist.fields.status_id_pay;
+                    send_data.initial_state_id = getStatusIdFromPipeStatus(fieldlist.fields.status_id_default);
+                    send_data.paid_state_id = getStatusIdFromPipeStatus(fieldlist.fields.status_id_pay);
                     send_data.apikey = system.amohash;
                     send_data.login = system.amouser;
                     send_data.enable_goods_linking = fieldlist.fields.enable_goods_linking;

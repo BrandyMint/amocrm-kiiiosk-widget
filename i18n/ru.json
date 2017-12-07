@@ -2,7 +2,7 @@
     "widget":{
         "name":"Интеграция с kiiiosk.ru",
         "short_description":"Виджет для экспорта заказов из интернет-магазина на kiiiosk.ru",
-        "description":"<a href='https://kiiiosk.ru/'>kiiiosk.ru</a> – это конструктор интернет-магазинов. Запустите экспорт заказов из интернет-магазина и обрабатывайте их в AmoCRM используя все возможности Digital Pipeline.<br>Как это работает:<br>Устанавливаете ключ доступа (X-Api-Key) со строницы своего профиля на kiiiosk.ru - https://kiiiosk.ru/profile/access_keys и получаете автоматический экспорт заказов в AmoCRM."
+        "description":"<a href='https://kiiiosk.ru/'>kiiiosk.ru</a> – это конструктор    интернет-магазинов. Запустите экспорт заказов из интернет-магазина и обрабатывайте их в AmoCRM используя все возможности Digital Pipeline.<br>Как это работает:<br>Устанавливаете ключ доступа (X-Api-Key) со строницы своего профиля на kiiiosk.ru - https://kiiiosk.ru/profile/access_keys и получаете автоматический экспорт заказов в AmoCRM."
     },
     "settings":{
         "api_key": "API key",

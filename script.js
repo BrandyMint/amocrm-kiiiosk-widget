@@ -97,6 +97,14 @@ define(['jquery'], function($){
          * @return {String}                status id
          */
         function getStatusIdFromPipeStatus(pipeSepStatus) {
+            if( !_.isString(pipeSepStatus) ) {
+                return '';
+            }
+
+            if( !~pipeSepStatus.indexOf("|") ){
+                return '';
+            }
+
             if(0 === pipeSepStatus.length ) {
                 return '';
             }

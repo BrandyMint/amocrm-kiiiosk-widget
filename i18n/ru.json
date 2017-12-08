@@ -10,8 +10,8 @@
         "status_id_pay": "Статус сделки при оплате",
         "goods_catalog_id": "Список товаров",
         "enable_goods_linking": "Привязывать товары к заказу",
-        "moysklad_id": "ID поля содержащего Moysklad ID товара",
-        "delivery_address": "Поле адреса доставки в заказе"
+        "moysklad_id": "ID поля Moysklad ID",
+        "delivery_address": "ID поля адреса"
     }
 }
 

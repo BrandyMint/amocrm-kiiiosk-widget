@@ -2,7 +2,7 @@
     "widget":{
         "name":"Интеграция с kiiiosk.ru",
         "short_description":"Виджет для экспорта заказов из интернет-магазина на kiiiosk.ru",
-        "description":"<a href='https://kiiiosk.ru/'>kiiiosk.ru</a> – это конструктор    интернет-магазинов. Запустите экспорт заказов из интернет-магазина и обрабатывайте их в AmoCRM используя все возможности Digital Pipeline.<br>Как это работает:<br>Устанавливаете ключ доступа (X-Api-Key) со строницы своего профиля на kiiiosk.ru - https://kiiiosk.ru/profile/access_keys и получаете автоматический экспорт заказов в AmoCRM."
+        "description":"<a href='https://kiiiosk.ru/'>kiiiosk.ru</a> – это конструктор    интернет-магазинов. Запустите экспорт заказов из интернет-магазина и обрабатывайте их в AmoCRM используя все возможности Digital Pipeline.<br><br><p class='widget_header__description_h'>Как работает:</p>При создании нового заказа в Киоске, в amoCRM создается Контакт и Сделка с товарами, адресом доставки и суммой заказа. При оплате заказа в Киоске сделка в AmoCRM перемещается на соответвующий этап в воронке.<br><br><p class='widget_header__description_h'>Подключение:</p>Устанавливаете ключ доступа (X-Api-Key) со страницы своего профиля на <a href='https://kiiiosk.ru/profile/access_keys'>kiiiosk.ru</a> - и получаете автоматический экспорт заказов в AmoCRM.<br><br>Виджет разработан <a href='https://cmdf5.ru/?utm_source=amocrm&utm_medium=widget&utm_campaign=ki'>Командой F5</a><br>Телефон: +7(495)248-01-05<br>Email: widget-ki@comf5.ru"
     },
     "settings":{
         "api_key": "API key",

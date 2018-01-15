@@ -275,6 +275,8 @@ define(['jquery'], function($){
                     send_data.login = system.amouser;
                     send_data.enable_goods_linking = fieldlist.fields.enable_goods_linking;
                     send_data.url = 'https://' + system.domain;
+                    send_data.order_delivery_custom_field_id = fieldlist.fields.delivery_address;
+                    send_data.goods_catalog_moysklad_custom_field_id = fieldlist.fields.moysklad_id;
 
                     let apiKey = fieldlist.fields.api_key;
 
